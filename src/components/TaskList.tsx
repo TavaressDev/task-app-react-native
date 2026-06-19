@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { SectionList, StyleSheet, View, Text } from 'react-native';
 import TaskItem from './TaskItem';
+import EmptyState from './EmptyState';
 import { TaskItem as TaskType } from '../utils/handle-api';
 
 // TODO (Zustand): Remova as props tasks, onUpdate e onDelete daqui, elas não serão mais necessárias
@@ -21,6 +22,14 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdate, onDelete }) => {
       { title: '📋 Pendentes', data: pendingTasks },
     ];
   }, [tasks]);
+
+  if (tasks.length === 0) {
+    return (
+      <View style={styles.listContainer}>
+        <EmptyState />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.listContainer}>
